@@ -13,6 +13,7 @@
 #include "include/cef_browser.h"
 #include "include/cef_frame.h"
 #include "include/cef_runnable.h"
+#include "include/cef_command_line.h"
 #include "cefclient/client_handler.h"
 #include "cefclient/resource.h"
 #include "cefclient/scheme_test.h"
@@ -288,9 +289,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam,
       info.SetAsChild(hWnd, rect);
 
       // Creat the new child browser window
+      CefString url("http://www.google.com");
+      if (AppGetCommandLine()->HasArguments()) {
+        CefCommandLine::ArgumentList arguments;
+        AppGetCommandLine()->GetArguments(arguments);
+        url = arguments[0];
+      }
       CefBrowserHost::CreateBrowser(info,
           static_cast<CefRefPtr<CefClient> >(g_handler),
-          "http://www.google.com", settings);
+          url, settings);
 
       return 0;
     }

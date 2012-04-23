@@ -12,6 +12,7 @@
         'enable_skia_text': 1,
       }, { # OS!="win"
         'cef_directory' : '<!(echo $CEF_DIRECTORY)',
+        'use_openssl' : 1,
       }],
       [ 'OS=="mac"', {
         # Don't use the chrome style plugin with CEF.

@@ -11,6 +11,7 @@
 #include "include/cef_browser.h"
 #include "include/cef_frame.h"
 #include "include/cef_runnable.h"
+#include "include/cef_command_line.h"
 #include "cefclient/client_handler.h"
 #include "cefclient/scheme_test.h"
 #include "cefclient/string_util.h"
@@ -314,10 +315,16 @@ int main(int argc, char* argv[]) {
 
   window_info.SetAsChild(vbox);
 
+  CefString url("about:blank");
+  if (AppGetCommandLine()->HasArguments()) {
+    CefCommandLine::ArgumentList arguments;
+    AppGetCommandLine()->GetArguments(arguments);
+    url = arguments[0];
+  }
   CefBrowserHost::CreateBrowserSync(
       window_info,
       static_cast<CefRefPtr<CefClient> >(g_handler),
-      "http://www.google.com", browserSettings);
+      url, browserSettings);
 
   gtk_container_add(GTK_CONTAINER(window), vbox);
   gtk_widget_show_all(GTK_WIDGET(window));

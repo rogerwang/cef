@@ -22,6 +22,7 @@
         'cef_pak',
         'libcef',
         'libcef_dll_wrapper',
+        '../third_party/nwebkit/nwebkit.gyp:nwebkit',
       ],
       'defines': [
         'USING_CEF_SHARED',
@@ -213,6 +214,7 @@
         '<(DEPTH)/testing/gtest.gyp:gtest',
         '<(DEPTH)/third_party/icu/icu.gyp:icui18n',
         '<(DEPTH)/third_party/icu/icu.gyp:icuuc',
+        '<(DEPTH)/third_party/node/node.gyp:node',
         'cef_pak',
         'libcef',
         'libcef_dll_wrapper',
@@ -395,6 +397,9 @@
       ],
       'include_dirs': [
         '.',
+      ],
+      'export_dependent_settings': [
+         '../skia/skia.gyp:skia',
       ],
       # Avoid "RC1102: internal error : too many arguments to RCPP" error by
       # explicitly specifying a short list of resource include directories.
